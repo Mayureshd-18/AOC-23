@@ -1,8 +1,5 @@
 from collections import Counter
 
-
-precedence = ['A', 'K', 'Q', ]
-
 mapper = {
     'A' : 'Z',
     'K' : 'Y',
@@ -72,9 +69,30 @@ with open("input_1.txt") as f:
 
         #Map the hand with another alphabet to determine the rank easily
         hand = list(hand)
-        for i in range(len(hand)):
-            hand[i] = mapper[hand[i]]
-        hand = "".join(hand)
+
+        #
+        # for i in range(len(hand)):
+        #     hand[i] = mapper[hand[i]]
+        hand = ''.join(mapper.get(card, card) for card in hand)
+
+        if 'W' in hand:
+            count_no_j = Counter(char for char in hand if char !='W')
+            print(count_no_j)
+            try:
+                max_count = max(count_no_j.values())
+                max_chars = [char for char, count in count_no_j.items() if count == max_count ]
+                print(max_chars)
+
+                max_char = max(max_chars)
+                while 'W' in hand:
+                    hand = hand.replace('W', max_char)
+            except:
+                hand= 'ZZZZZ'
+
+
+        print(hand)
+
+
 
         data[hand] = int(bid)
 
