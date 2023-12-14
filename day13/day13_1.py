@@ -2,21 +2,25 @@ def check_vertical(pattern):
     l = len(pattern[0])
     for n in range(1,l):
         min_len = min(n, l-n)
-        flag = True
-        # print(n)
-        for p in pattern:
-            left = p[:n]
-            left = left[-min_len:]
-            right = p[n:n+min_len][::-1]
-            # print(f'{left} || {right}')
-            if left!=right:
-                flag = False
-                break
-        if flag:
-            # print(f"Mirror found at {n} ")
+    #     flag = True
+    #     # print(n)
+    #     for p in pattern:
+    #         left =  p[:n][-min_len:]
+    #         right = p[n:n+min_len][::-1]
+    #         # print(f'{left} || {right}')
+    #         if left!=right:
+    #             flag = False
+    #             break
+    #     if flag:
+    #         # print(f"Mirror found at {n} ")
+    #         return n
+    #     # print()
+    # # print("Mirror not found")
+        if all(
+                p[:n][-min_len:] == p[n:n + min_len][::-1]
+                for p in pattern
+        ):
             return n
-        # print()
-    # print("Mirror not found")
     return 0
 
 
