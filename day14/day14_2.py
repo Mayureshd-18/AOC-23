@@ -23,7 +23,8 @@ with open("input_1.txt") as f:
     print(*lines, sep="\n")
 
 
-    for _ in range (1000000000):
+    for c in range (1000000000):
+        # print(f"current cycle {c}/1000000000")
 
         for r in range(4):
             if r==0:

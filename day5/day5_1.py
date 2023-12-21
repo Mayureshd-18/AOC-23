@@ -23,7 +23,6 @@ with open("input_1.txt") as f:
             seeds = list(map(int, seeds.split()))
 
 
-
         elif line.startswith("seed-to"):
             flag = True
             continue
@@ -31,7 +30,7 @@ with open("input_1.txt") as f:
             start, end, ranges = map(int, line.split())
 
             seed_to_soil[(start, start+ranges)] = [end, end+ranges]
-            print(line)
+            # print(line)
             # continue
         if line=="":
             flag = False
@@ -46,7 +45,7 @@ with open("input_1.txt") as f:
             start, end, ranges = map(int, line.split())
 
             soil_to_fertilizer[(start, start+ranges)] = [end, end+ranges]
-            print(line)
+            # print(line)
             # continue
         if line=="":
             flag2 = False
@@ -60,7 +59,7 @@ with open("input_1.txt") as f:
             start, end, ranges = map(int, line.split())
 
             fertilizer_to_water[(start, start+ranges)] = [end, end+ranges]
-            print(line)
+            # print(line)
             # continue
         if line=="":
             flag3 = False
@@ -74,7 +73,7 @@ with open("input_1.txt") as f:
             start, end, ranges = map(int, line.split())
 
             water_to_light[(start, start+ranges)] = [end, end+ranges]
-            print(line)
+            # print(line)
             # continue
         if line=="":
             flag4 = False
@@ -89,7 +88,7 @@ with open("input_1.txt") as f:
             start, end, ranges = map(int, line.split())
 
             light_to_temperature[(start, start+ranges)] = [end, end+ranges]
-            print(line)
+            # print(line)
             # continue
         if line=="":
             flag5 = False
@@ -103,7 +102,7 @@ with open("input_1.txt") as f:
             start, end, ranges = map(int, line.split())
 
             temperature_to_humidity[(start, start+ranges)] = [end, end+ranges]
-            print(line)
+            # print(line)
             # continue
         if line=="":
             flag6 = False
@@ -117,36 +116,51 @@ with open("input_1.txt") as f:
             start, end, ranges = map(int, line.split())
 
             humidity_to_location[(start, start+ranges)] = [end, end+ranges]
-            print(line)
+            # print(line)
             # continue
         if line=="":
             flag1 = False
 
 
-    print(seeds)
-    print(seed_to_soil)
-    print(soil_to_fertilizer)
-    print(fertilizer_to_water)
-    print(water_to_light)
-    print(light_to_temperature)
-    print(temperature_to_humidity)
-    print(humidity_to_location)
+    # print(seeds)
+    # print(seed_to_soil)
+    # print(soil_to_fertilizer)
+    # print(fertilizer_to_water)
+    # print(water_to_light)
+    # print(light_to_temperature)
+    # print(temperature_to_humidity)
+    # print(humidity_to_location)
+
+    # seeds_2 = []
+    #
+    # for i in range(0, len(seeds), 2):
+    #     for j in range(seeds[i], seeds[i] + seeds[i+1]):
+    #         seeds_2.append(j)
+
+    # print(seeds_2)
+
+    # seeds = seeds_2
+
+    # print(seeds)
 
 
     seed_data = {}
 
-    for i in seeds:
-        flag = False
-        for j in seed_to_soil:
-            if seed_to_soil[j][0]<=i<=seed_to_soil[j][1]:
-                diff = i - seed_to_soil[j][0]
-                print(diff)
-                seed_data[i] = [j[0] + diff]
-                flag= True
-                break
+    for t in range(0,len(seeds),2):
+        for i in range(seeds[t], seeds[t]+seeds[t+1]):
+            # print(i)
 
-        if not flag:
-            seed_data[i] = [i]
+            flag = False
+            for j in seed_to_soil:
+                if seed_to_soil[j][0]<=i<=seed_to_soil[j][1]:
+                    diff = i - seed_to_soil[j][0]
+                    # print(diff)
+                    seed_data[i] = [j[0] + diff]
+                    flag= True
+                    break
+
+            if not flag:
+                seed_data[i] = [i]
 
     print(seed_data)
     # for i in seed_data:
@@ -170,7 +184,7 @@ with open("input_1.txt") as f:
             seed_data[i].append(seed_data[i][-1])
 
 
-    print(seed_data)
+    # print(seed_data)
 
 
 
@@ -179,7 +193,7 @@ with open("input_1.txt") as f:
         for j in fertilizer_to_water:
             if fertilizer_to_water[j][0]<=seed_data[i][-1]<=fertilizer_to_water[j][1]:
                 diff = seed_data[i][-1] - fertilizer_to_water[j][0]
-                print(diff)
+                # print(diff)
                 # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
                 seed_data[i].append(j[0] + diff)
                 flag= True
@@ -189,7 +203,7 @@ with open("input_1.txt") as f:
             # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
             seed_data[i].append(seed_data[i][-1])
 
-    print(seed_data)
+    # print(seed_data)
 
 
 
@@ -199,7 +213,7 @@ with open("input_1.txt") as f:
         for j in water_to_light:
             if water_to_light[j][0]<=seed_data[i][-1]<=water_to_light[j][1]:
                 diff = seed_data[i][-1] - water_to_light[j][0]
-                print(diff)
+                # print(diff)
                 # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
                 seed_data[i].append(j[0] + diff)
                 flag= True
@@ -209,7 +223,7 @@ with open("input_1.txt") as f:
             # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
             seed_data[i].append(seed_data[i][-1])
 
-    print(seed_data)
+    # print(seed_data)
 
 
     for i in seed_data:
@@ -217,7 +231,7 @@ with open("input_1.txt") as f:
         for j in light_to_temperature:
             if light_to_temperature[j][0]<=seed_data[i][-1]<=light_to_temperature[j][1]:
                 diff = seed_data[i][-1] - light_to_temperature[j][0]
-                print(diff)
+                # print(diff)
                 # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
                 seed_data[i].append(j[0] + diff)
                 flag= True
@@ -227,7 +241,7 @@ with open("input_1.txt") as f:
             # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
             seed_data[i].append(seed_data[i][-1])
 
-    print(seed_data)
+    # print(seed_data)
 
 
 
@@ -236,7 +250,7 @@ with open("input_1.txt") as f:
         for j in temperature_to_humidity:
             if temperature_to_humidity[j][0]<=seed_data[i][-1]<=temperature_to_humidity[j][1]:
                 diff = seed_data[i][-1] - temperature_to_humidity[j][0]
-                print(diff)
+                # print(diff)
                 # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
                 seed_data[i].append(j[0] + diff)
                 flag= True
@@ -246,7 +260,7 @@ with open("input_1.txt") as f:
             # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
             seed_data[i].append(seed_data[i][-1])
 
-    print(seed_data)
+    # print(seed_data)
 
 
     for i in seed_data:
@@ -254,7 +268,7 @@ with open("input_1.txt") as f:
         for j in humidity_to_location:
             if humidity_to_location[j][0]<=seed_data[i][-1]<=humidity_to_location[j][1]:
                 diff = seed_data[i][-1] - humidity_to_location[j][0]
-                print(diff)
+                # print(diff)
                 # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
                 seed_data[i].append(j[0] + diff)
                 flag= True
@@ -264,7 +278,7 @@ with open("input_1.txt") as f:
             # key = list(filter(lambda x: seed_data[x] == i, seed_data))[0]
             seed_data[i].append(seed_data[i][-1])
 
-    print(seed_data)
+    # print(seed_data)
 
     min_ = float('inf')
     for i in seed_data:
